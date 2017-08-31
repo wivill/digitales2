@@ -1,0 +1,2 @@
+registro.v
+registro_tb.v
