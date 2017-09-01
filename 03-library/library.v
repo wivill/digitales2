@@ -7,7 +7,7 @@ module nand_cell (oNand, iA, iB);
 output                        oNand;
 input                         iA, iB;
 
-nand G1(oNand,iA,iB);
+nand G1 #(15)(oNand,iA,iB);
 
 endmodule // nand
 //=============================================================================
@@ -17,7 +17,7 @@ module nor_cell (oNor, iA, iB);
 output                        oNor;
 input                         iA, iB;
 
-nor G1(oNor,iA,iB);
+nor G1 #(8)(oNor,iA,iB);
 
 endmodule // nor
 //=============================================================================
@@ -27,7 +27,7 @@ module not_cell (oNot, iA);
 output                        oNot;
 input                         iA;
 
-not G1(oNot,iA);
+not G1 #(3:10)(oNot,iA);
 
 endmodule // not
 //=============================================================================
