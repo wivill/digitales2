@@ -7,7 +7,7 @@ module nand_cell (oNand, iA, iB);
 output                        oNand;
 input                         iA, iB;
 
-nand G1 #(15)(oNand,iA,iB);
+nand #(16:23))(oNand,iA,iB);
 
 endmodule // nand
 //=============================================================================
@@ -17,7 +17,7 @@ module nor_cell (oNor, iA, iB);
 output                        oNor;
 input                         iA, iB;
 
-nor G1 #(8)(oNor,iA,iB);
+nor G1 #(8:16)(oNor,iA,iB);
 
 endmodule // nor
 //=============================================================================
@@ -42,11 +42,11 @@ always @ ( * ) begin
     case (iSel)
       1'b0:
       begin
-        oMux <= iA;
+      #(13:25)  oMux <= iA;
       end
       1'b1:
       begin
-        oMux <= iB;
+      #(13:25)  oMux <= iB;
       end
       default:
       begin
@@ -54,7 +54,7 @@ always @ ( * ) begin
       end
     endcase
   end else begin
-    oMux <= 1'b0;
+    #(16:23) oMux <= 1'b0;
   end
 end
 
