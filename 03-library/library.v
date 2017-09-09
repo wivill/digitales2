@@ -7,7 +7,7 @@ module nand_cell (oNand, iA, iB);
   output                        oNand;
   input                         iA, iB;
 
-  nand #(27) G1(oNand,iA,iB);
+  nand #(20:27:30) G1(oNand,iA,iB);
 
   specify
     specparam t_rise = 6;
@@ -26,7 +26,7 @@ module nor_cell (oNor, iA, iB);
   output                        oNor;
   input                         iA, iB;
 
-  nor #(27) G1(oNor,iA,iB);
+  nor #(20:27:30) G1(oNor,iA,iB);
 
   specify
     specparam t_rise = 6;
@@ -45,7 +45,7 @@ module not_cell (oNot, iA);
   output                        oNot;
   input                         iA;
 
-  not #(24) G1(oNot,iA);
+  not #(20:24:30) G1(oNot,iA);
 
   specify
     specparam t_rise = 6;
@@ -77,28 +77,28 @@ module mux (oMux, iA, iB, iSel, iEnb);
       case (iSel)
         1'b0:
         begin
-          #(23) oMux <= iA;
+          #(11:21:27) oMux <= iA;
         end
         1'b1:
         begin
-          #(23) oMux <= iB;
+          #(11:21:27) oMux <= iB;
         end
         default:
         begin
-          #(23) oMux <= 1'b0;
+          #(11:21:27) oMux <= 1'b0;
         end
       endcase
     end else begin
-      #(23) oMux <= 1'b0;
+      #(11:21:27) oMux <= 1'b0;
     end
   end
 
 endmodule
 //=============================================================================
 //=============================================================================
-module ffd (iClr, iPre, iClk, iD, oQ, oQn);
+module ffd (iClr, iPre, iClk, iD, oQp, oQn);
 
-  output reg                oQ, oQn;
+  output reg                oQp, oQn;
   input wire                iClr, iPre, iClk, iD;
 
   always @ ( posedge iClk ) begin
@@ -106,33 +106,44 @@ module ffd (iClr, iPre, iClk, iD, oQ, oQn);
       case ({iPre})
         1'b0:
         begin
-          #(20) oQ <= 1'b0;
-          #(20) oQn <= 1'b1;
+          #(10:15:30) oQp <= 1'b0;
+          #(10:15:30) oQn <= 1'b1;
         end
         1'b1:
         begin
-          #(20) oQ <= iD;
-          #(20) oQn <= ~iD;
+          #(10:15:30) oQp <= iD;
+          #(10:15:30) oQn <= ~iD;
         end
         default:
         begin
-          #(20) oQ <= oQ;
-          #(20) oQn <= oQn;
+          #(10:15:30) oQp <= oQ;
+          #(10:15:30) oQn <= oQn;
         end
       endcase
     end else begin
-      #(20) oQ <= 1'b0;
-      #(20) oQn <= 1'b1;
+      #(10:15:30) oQp <= 1'b0;
+      #(10:15:30) oQn <= 1'b1;
     end
   end
 
   specify
     specparam t_rise = 6;
     specparam t_fall = 6;
-    specparam t_setup$iD$iCLK = 25;
-    specparam t_hold$iD$iCLK = 25;
+    specparam t_setup_iD_iClk = 25;
+    specparam t_hold_iD_iClk = 25;
+    specparam t_width_l_iClk = 17;
+    specparam t_width_h_iClk = 17;
 
-    
+    (posedge iClk *> (oQp +: iD)) = (t_rise, t_fall);
+    (posedge iClk *> (oQn -: iD)) = (t_rise, t_fall);
+
+    $setuphold(posedge iClk, posedge iD, t_setup_iD_iClk,t_hold_iD_iClk);
+    $setuphold(posedge iClk, negedge iD, t_setup_iD_iClk,t_hold_iD_iClk);
+
+    $width(posedge iClk, t_width_h_iClk, 0);
+    $width(negedge iClk, t_width_l_iClk, 0);
+
+
   endspecify
 
 endmodule // ffd
