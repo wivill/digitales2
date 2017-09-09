@@ -116,7 +116,7 @@ module ffd (iClr, iPre, iClk, iD, oQp, oQn);
         end
         default:
         begin
-          #(10:15:30) oQp <= oQ;
+          #(10:15:30) oQp <= oQp;
           #(10:15:30) oQn <= oQn;
         end
       endcase
