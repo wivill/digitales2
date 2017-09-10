@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 `include "library.v"
-`include "../tester/library_tester.v"
+`include "library_tester.v"
 module test_bench ();
 
   wire Nand, Nor, Not, Mux, Qn, Qp;

@@ -1,6 +1,3 @@
-`timescale 1ns/1ps
-//`include "library.v"
-//`include "library_tb.v"
 module tester (oA, oB, oD, oClk, oEnb, oClr, oSel, oPre);
   output reg oA, oB, oD, oClk, oEnb, oClr, oSel, oPre;
   // Pruebas sincrónicas
@@ -61,11 +58,6 @@ module tester (oA, oB, oD, oClk, oEnb, oClr, oSel, oPre);
     oB = 1'b1;
     repeat(3) @(posedge oClk);
     $finish;
-  end
-
-  initial begin
-    $monitor("At time %t, oQn=%h, oQp=%h, oNand=%h, oNor=%h, oNot=%h,oMux=%h",
-            $realtime, oQn, oQp, oNand, oNor, oNot, oMux);
   end
 
   initial begin

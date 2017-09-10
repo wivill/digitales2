@@ -10,7 +10,7 @@ EXE=library
 YOS=yoscript.txt
 
 all:
-	iverilog -o -Ttyp -Tmin -Tmax ${EXE} -c ${SRC}
+	iverilog -Ttyp -Tmin -Tmax -o ${EXE} -c ${SRC}
 
 run:
 	vvp ${EXE}

@@ -1,3 +1,1 @@
-library.v
-test_bench/library_tb.v
-tester/library_tester.v
+library_tb.v
