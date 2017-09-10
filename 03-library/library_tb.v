@@ -5,6 +5,10 @@ module test_bench ();
 
   wire Nand, Nor, Not, Mux, Qn, Qp;
 
+  tester tester00(
+    oA, oB, oD, oClk, oEnb, oClr, oSel, oPre
+  );
+
   nand_cell nand00
   (
     .oNand(Nand),
