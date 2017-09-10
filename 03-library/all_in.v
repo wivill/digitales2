@@ -1,6 +1,50 @@
-module tester (oA, oB, oD, oClk, oEnb, oClr, oSel, oPre);
+`timescale 1ns/1ps
+`include "library.v"
+module test_bench ();
 
-  output reg oA, oB, oD, oClk, oEnb, oClr, oSel, oPre;
+  wire Nand, Nor, Not, Mux, Qn, Qp;
+  reg oA, oB, oD, oClk, oEnb, oClr, oSel, oPre;
+
+  nand_cell nand00
+  (
+    .oNand(Nand),
+    .iA(oA),
+    .iB(oB)
+  );
+
+  nor_cell nor00
+  (
+    .oNor(Nor),
+    .iA(oA),
+    .iB(oB)
+  );
+
+  not_cell not00
+  (
+    .oNot(Not),
+    .iA(oA)
+  );
+
+  mux mux00
+  (
+    .oMux(Mux),
+    .iA(oA),
+    .iB(oB),
+    .iSel(oSel),
+    .iEnb(oEnb)
+  );
+
+  ffd ffd00
+  (
+    .iClr(oClr),
+    .iPre(oPre),
+    .iClk(oClk),
+    .iD(oD),
+    .oQp(Qp),
+    .oQn(Qn)
+  );
+
+
   // Pruebas sincrónicas
   // Reloj
   initial begin
@@ -63,8 +107,8 @@ module tester (oA, oB, oD, oClk, oEnb, oClr, oSel, oPre);
 
   initial begin
     $dumpfile ("library.vcd");
-//    $dumpvars(1, library_tb);
+  //    $dumpvars(1, library_tb);
     $dumpvars;
   end
 
-endmodule // tester
+endmodule // test_bench
