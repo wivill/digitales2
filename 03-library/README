@@ -19,8 +19,3 @@ make yosys	sintetiza el .v usando la receta provista por
 make clean	limpia el directorio de ejecutables y otros
 		residuos.
 
-make 32		compila el módulo con el test bench de pruebas
-		de 32 bits.
-
-make 32v2	compila el módulo con el test bench de pruebas
-		de 32 bits usando el parámetro WIDTH=32

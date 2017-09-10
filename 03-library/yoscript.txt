@@ -1,4 +1,4 @@
-read_verilog registro.v
+read_verilog library.v
 hierarchy -check -top registro
 proc; opt; fsm; opt; memory; opt
 techmap; opt

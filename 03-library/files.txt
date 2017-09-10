@@ -1,2 +1,3 @@
-registro.v
-registro_tb.v
+library.v
+test_bench/library_tb.v
+tester/library_tester.v

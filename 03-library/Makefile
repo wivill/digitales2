@@ -6,21 +6,11 @@
 ###########################################################
 
 SRC=files.txt
-EXE=registro
+EXE=library
 YOS=yoscript.txt
 
 all:
-	iverilog -o ${EXE} -c ${SRC}
-
-32:
-	iverilog -o ${EXE}32 registro.v registro32_tb.v
-	vvp ${EXE}32
-	gtkwave ${EXE}32.vcd &
-
-32v2:
-	iverilog -o ${EXE}32v2 registro.v registro32v2_tb.v
-	vvp ${EXE}32v2
-	gtkwave ${EXE}32v2.vcd &
+	iverilog -o -Ttyp -Tmin -Tmax ${EXE} -c ${SRC}
 
 run:
 	vvp ${EXE}
@@ -32,4 +22,4 @@ wave:
 	gtkwave ${EXE}.vcd &
 
 clean:
-	rm -rf ${EXE} ${EXE}32 ${EXE}32.vcd ${EXE}.vcd synth.v
+	rm -rf ${EXE} ${EXE}.vcd synth.v
